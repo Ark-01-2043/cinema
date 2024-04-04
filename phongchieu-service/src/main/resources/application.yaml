@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: phongchieu-service
+  config:
+    import: "optional:configserver:http://localhost:8099"

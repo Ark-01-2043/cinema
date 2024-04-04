@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: phim-service
+  config:
+    import: "optional:configserver:http://localhost:8099"

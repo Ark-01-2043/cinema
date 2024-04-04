@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: rap-service
+  config:
+    import: "optional:configserver:http://localhost:8099"
