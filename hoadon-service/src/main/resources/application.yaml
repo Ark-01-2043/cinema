@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: hoadon-service
+  config:
+    import: "optional:configserver:http://localhost:8099"

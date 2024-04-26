@@ -53,6 +53,14 @@ spring:
             uri: lb://lichchieu-service
             predicates:
               - Path=/api/lichchieus/**
+          - id: ve-service
+            uri: lb://ve-service
+            predicates:
+              - Path=/api/ves/**
+          - id: hoadon-service
+            uri: lb://hoadon-service
+            predicates:
+              - Path=/api/hoadons/**
 management:
   tracing:
     sampling:

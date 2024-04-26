@@ -1,14 +1,14 @@
 server:
-  port: 8087
+  port: 8088
 
 spring:
   application:
-    name: lichchieu-service
+    name: ve-service
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: password
-    url: jdbc:mysql://localhost:3306/quanlyrapphim_lichchieu
+    url: jdbc:mysql://localhost:3306/quanlyrapphim_ve
   jpa:
     hibernate:
       ddl-auto: update
@@ -22,9 +22,7 @@ eureka:
 application:
   config:
     ghes-url: http://localhost:8060/api/ghes
-    khunggios-url: http://localhost:8060/api/khunggios
-    phims-url: http://localhost:8060/api/phims
-    phongchieus-url: http://localhost:8060/phongchieus
+    lichchieus-url: http://localhost:8060/api/lichchieus
 
 management:
   tracing:

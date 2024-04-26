@@ -8,7 +8,7 @@ import com.jpn2018.khunggioservice.service.KhungGioService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/khunggios")
+@RequestMapping("/api/khunggios")
 public class KhungGioController {
 
     @Autowired

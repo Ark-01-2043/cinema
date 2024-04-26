@@ -1,4 +1,4 @@
-package com.jpn2018.lichchieuservice;
+package com.jpn2018.veservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -8,10 +8,10 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @SpringBootApplication
 @EnableDiscoveryClient
 @EnableFeignClients
-public class LichchieuServiceApplication {
+public class VeServiceApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(LichchieuServiceApplication.class, args);
+		SpringApplication.run(VeServiceApplication.class, args);
 	}
 
 }
