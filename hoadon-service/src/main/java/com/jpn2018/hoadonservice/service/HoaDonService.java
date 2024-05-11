@@ -17,5 +17,4 @@ public interface HoaDonService {
     List<HoaDonDto> getAllDtos()  throws ThanhVienNotFoundException ;
     HoaDonDto getDtoById(Long id)  throws ThanhVienNotFoundException ;
     HoaDonDto datVe(HoaDon hoaDon) throws ThanhVienNotFoundException ;
-   
 }

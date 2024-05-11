@@ -77,6 +77,11 @@ public class ThanhVienServiceImpl implements ThanhVienService {
 
     }
 
+    @Override
+    public ThanhVien getThanhVienByEmail(String email) {
+        return thanhVienRepository.findByEmail(email).get();
+    }
+
 //    @Override
 //    public void changePassword(ChangePasswordRequest request, Principal connectedUser) {
 //

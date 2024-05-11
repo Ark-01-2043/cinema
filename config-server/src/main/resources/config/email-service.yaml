@@ -1,0 +1,28 @@
+server:
+  port: 8092
+
+spring:
+  mail:
+    host: smtp.gmail.com
+    password: htyrusjamkzpeess
+    port: 587
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+    username: hxluong1611@gmail.com
+
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+
+
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+

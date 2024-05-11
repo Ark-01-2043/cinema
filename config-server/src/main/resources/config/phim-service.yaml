@@ -13,6 +13,11 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+  data:
+    redis:
+      host: redis-14439.c252.ap-southeast-1-1.ec2.redns.redis-cloud.com
+      port: 14439
+      password: vE33gQXSafSqeEzpR308UVMM04Z8jr08
 
 eureka:
   client:

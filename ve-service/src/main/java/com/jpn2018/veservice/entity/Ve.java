@@ -1,4 +1,5 @@
 package com.jpn2018.veservice.entity;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,7 +18,9 @@ public class Ve {
     private Long id;
     private Long lichChieuId;
     private Long gheId;
-    private boolean status;
+
+    @Column(name = "booked", columnDefinition = "boolean default false")
+    private Boolean booked = false;
 
 
 }

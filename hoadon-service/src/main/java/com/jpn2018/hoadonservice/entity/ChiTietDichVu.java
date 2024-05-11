@@ -1,6 +1,6 @@
 package com.jpn2018.hoadonservice.entity;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,6 +20,7 @@ public class ChiTietDichVu {
     private int price;
     private int quantity;
     private Long dichVuId;
+
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(
             name = "hoadon_id",

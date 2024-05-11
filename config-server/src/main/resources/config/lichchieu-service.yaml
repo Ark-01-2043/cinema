@@ -13,6 +13,11 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+  data:
+    redis:
+      host: redis-14439.c252.ap-southeast-1-1.ec2.redns.redis-cloud.com
+      port: 14439
+      password: vE33gQXSafSqeEzpR308UVMM04Z8jr08
 
 eureka:
   client:
@@ -24,7 +29,8 @@ application:
     ghes-url: http://localhost:8060/api/ghes
     khunggios-url: http://localhost:8060/api/khunggios
     phims-url: http://localhost:8060/api/phims
-    phongchieus-url: http://localhost:8060/phongchieus
+    phongchieus-url: http://localhost:8060/api/phongchieus
+    raps-url: http://localhost:8060/api/raps
 
 management:
   tracing:

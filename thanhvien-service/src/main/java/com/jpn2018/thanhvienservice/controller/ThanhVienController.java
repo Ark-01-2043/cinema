@@ -26,15 +26,21 @@ public class ThanhVienController {
         return thanhVienService.login(thanhVien);
     }
 
+    @GetMapping("/{email}")
+    public ThanhVien getThanhVienByEmail(@PathVariable String email) throws ThanhVienNotFoundException {
+        return thanhVienService.getThanhVienByEmail(email);
+    }
+
     @GetMapping
     public List<ThanhVien> getAllThanhViens() {
         return thanhVienService.getAllThanhViens();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/id/{id}")
     public ThanhVien getThanhVienById(@PathVariable Long id) throws ThanhVienNotFoundException {
         return thanhVienService.getThanhVienById(id);
     }
+
 
     @DeleteMapping("/{id}")
     public String deleteThanhVien(@PathVariable Long id) {

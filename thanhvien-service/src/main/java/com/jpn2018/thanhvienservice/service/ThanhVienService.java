@@ -18,6 +18,8 @@ public interface ThanhVienService {
 
     ThanhVien login(ThanhVien thanhVien) throws ThanhVienNotFoundException;
 
+    ThanhVien getThanhVienByEmail(String email);
+
 //    ThanhVien updateThanhVien(Long id, ThanhVien thanhVien);
 
 //    ThanhVien login(ThanhVien thanhVien) throws ThanhVienNotFoundException;

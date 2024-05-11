@@ -20,11 +20,11 @@ spring:
           - id: rap-service
             uri: lb://rap-service
             predicates:
-              - Path=/raps/**
+              - Path=/api/raps/**
           - id: phongchieu-service
             uri: lb://phongchieu-service
             predicates:
-              - Path=/phongchieus/**
+              - Path=/api/phongchieus/**
           - id: phim-service
             uri: lb://phim-service
             predicates:
@@ -61,6 +61,10 @@ spring:
             uri: lb://hoadon-service
             predicates:
               - Path=/api/hoadons/**
+          - id: email-service
+            uri: lb://email-service
+            predicates:
+              - Path=/api/emails/**
 management:
   tracing:
     sampling:

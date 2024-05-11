@@ -1,16 +1,15 @@
 package com.jpn2018.veservice.serviceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import com.jpn2018.veservice.client.GheClient;
 import com.jpn2018.veservice.client.LichChieuClient;
-import com.jpn2018.veservice.dto.Ghe;
-import com.jpn2018.veservice.dto.LichChieuDto;
-import com.jpn2018.veservice.dto.VeDto;
+import com.jpn2018.veservice.dto.*;
 import com.jpn2018.veservice.entity.Ve;
 import com.jpn2018.veservice.repository.VeRepository;
 import com.jpn2018.veservice.service.VeService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,7 +22,7 @@ public class VeServiceImpl implements VeService {
     private GheClient gheClient;
     @Autowired
     private LichChieuClient lichChieuClient;
-   
+
 
     @Override
     public Ve saveVe(Ve ve) {
@@ -57,7 +56,7 @@ public class VeServiceImpl implements VeService {
     public Ve updateVe(Long id, Ve ve) {
         Optional<Ve> existingVe = veRepository.findById(id);
         if (existingVe.isPresent()) {
-            
+
 
             return veRepository.save(ve);
         } else {
@@ -69,38 +68,54 @@ public class VeServiceImpl implements VeService {
     }
 
     @Override
-    public List<Ve> findVeByLichChieu(Long lichChieuId) {
+    public List<VeFullResponse> findVeByLichChieu(Long lichChieuId) {
+        List<Ve> ves = veRepository.findByLichChieuId(lichChieuId);
+        List<VeFullResponse> responses = new ArrayList<>();
 
+        for (Ve ve : ves) {
+            Ghe ghe = gheClient.getGheById(ve.getGheId());
+            LichChieuFullResponse lichChieuFullResponse = lichChieuClient.getLichChieuFullResponseById(lichChieuId);
 
-        return veRepository.findByLichChieuId(lichChieuId);
+            VeFullResponse response = VeFullResponse.builder()
+                    .id(ve.getId())
+                    .lichChieu(lichChieuFullResponse)
+                    .ghe(ghe)
+                    .booked(ve.getBooked())
+                    .build();
+
+            responses.add(response);
+        }
+        System.out.println(responses);
+
+        return responses;
     }
 
-	@Override
-	public VeDto toDto(Ve ve) {
-		// TODO Auto-generated method stub
-		LichChieuDto lichChieuDto = lichChieuClient.getLichChieuDtoById(ve.getLichChieuId()).getBody();
-		Ghe ghe = gheClient.getGheById(ve.getGheId());
-		return VeDto.builder().id(ve.getId())
-				.date(lichChieuDto.getDate())
-				.numberChair(ghe.getNumberChair())
-				.price(lichChieuDto.getPrice())
-				.tenPhim(lichChieuDto.getTenPhim())
-				.tenPhong(lichChieuDto.getTenPhong())
-				.timeEnd(lichChieuDto.getTimeEnd())
-				.timeStart(lichChieuDto.getTimeStart())
-				.build();
-	}
+    @Override
+    public VeDto toDto(Ve ve) {
+        // TODO Auto-generated method stub
+        LichChieuDto lichChieuDto = lichChieuClient.getLichChieuDtoById(ve.getLichChieuId()).getBody();
+        Ghe ghe = gheClient.getGheById(ve.getGheId());
+        return VeDto.builder().id(ve.getId())
+                .date(lichChieuDto.getDate())
+                .numberChair(ghe.getNumberChair())
+                .price(lichChieuDto.getPrice())
+                .tenPhim(lichChieuDto.getTenPhim())
+                .tenPhong(lichChieuDto.getTenPhong())
+                .timeEnd(lichChieuDto.getTimeEnd())
+                .timeStart(lichChieuDto.getTimeStart())
+                .build();
+    }
 
-	@Override
-	public List<VeDto> getAllVeDtos() {
-		// TODO Auto-generated method stub
-		return veRepository.findAll().stream().map((item) -> toDto(item)).toList();
-	}
+    @Override
+    public List<VeDto> getAllVeDtos() {
+        // TODO Auto-generated method stub
+        return veRepository.findAll().stream().map((item) -> toDto(item)).toList();
+    }
 
-	@Override
-	public VeDto getVeDtoById(Long id) {
-		// TODO Auto-generated method stub
-		Optional<Ve> ve = veRepository.findById(id);
+    @Override
+    public VeDto getVeDtoById(Long id) {
+        // TODO Auto-generated method stub
+        Optional<Ve> ve = veRepository.findById(id);
         if (ve.isPresent()) {
             return toDto(ve.get());
         } else {
@@ -109,21 +124,5 @@ public class VeServiceImpl implements VeService {
             // throw new NotFoundException("Ve not found with ID: " + id);
             return null;
         }
-	}
-
-	@Override
-	public Ve changeStatus(Long id) {
-		// TODO Auto-generated method stub
-		Optional<Ve> ve = veRepository.findById(id);
-        if (ve.isPresent()) {
-            Ve ve2 = ve.get();
-            ve2.setStatus(!ve2.isStatus());
-            return veRepository.save(ve2);
-        } else {
-            // Handle not found exception or return null/throw exception
-            // For example:
-            // throw new NotFoundException("Ve not found with ID: " + id);
-            return null;
-        }
-	}
+    }
 }

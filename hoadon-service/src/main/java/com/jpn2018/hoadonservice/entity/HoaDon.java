@@ -1,5 +1,5 @@
 package com.jpn2018.hoadonservice.entity;
-import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,13 +21,15 @@ public class HoaDon {
     private Long id;
     private LocalDate date;
     private Long thanhVienId;
-    private int thanhToanId;
+    private int hinhThucThanhToanId;
+
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(
             name = "hoadon_id",
             referencedColumnName = "id"
     )
     private List<ChiTietDichVu> chiTietDichVus;
+
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(
             name = "hoadon_id",

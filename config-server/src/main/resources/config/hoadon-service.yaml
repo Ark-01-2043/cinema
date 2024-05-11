@@ -24,7 +24,8 @@ application:
     ves-url: http://localhost:8060/api/ves
     dichvus-url: http://localhost:8060/api/dichvus
     thanhviens-url: http://localhost:8060/api/thanhviens
-    
+    emailservice-url: http://localhost:8060/api/emails
+
 
 management:
   tracing:
