@@ -5,14 +5,21 @@ spring:
   application:
     name: lichchieu-service
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    username: root
-    password: password
-    url: jdbc:mysql://localhost:3306/quanlyrapphim_lichchieu
+    #driver-class-name: com.mysql.cj.jdbc.Driver
+    #username: root
+    #password: password
+    #url: jdbc:mysql://localhost:3306/quanlyrapphim_lichchieu
+    url: jdbc:postgresql://tiny.db.elephantsql.com:5432/davohfxu
+    username: davohfxu
+    password: 3DiiqiK741_d4TpNDaD0mKu2fvXDM_38
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
   data:
     redis:
       host: redis-14439.c252.ap-southeast-1-1.ec2.redns.redis-cloud.com

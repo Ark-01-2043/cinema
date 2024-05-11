@@ -5,14 +5,21 @@ spring:
   application:
     name: rap-service
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    username: root
-    password: password
-    url: jdbc:mysql://localhost:3306/quanlyrapphim_rap
+    #driver-class-name: com.mysql.cj.jdbc.Driver
+    #username: root
+    #password: password
+    #url: jdbc:mysql://localhost:3306/quanlyrapphim_rap
+    url: jdbc:postgresql://tiny.db.elephantsql.com:5432/ynksqobq
+    username: ynksqobq
+    password: 6d6gFm7LtYSvEYH0l9AUfLPCo3mmCb2B
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
 
 eureka:
   client:
