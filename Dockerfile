@@ -5,6 +5,7 @@ WORKDIR /app
 
 COPY config-server /app/config-server
 RUN mvn clean package -DskipTests
+WORKDIR /app
 FROM openjdk:17.0.1-jdk-slim
 COPY --from=build /target/config-server-0.0.1-SNAPSHOT.jar config-server.jar
 EXPOSE 8099
