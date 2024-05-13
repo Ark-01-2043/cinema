@@ -1,0 +1,148 @@
+version: '3.8'
+services:
+  config-server-container:    
+    container_name: config-server-container    
+    build:
+      context: ./config-server
+      dockerfile: Dockerfile
+    ports:
+      - 8099:8099
+  gateway-container:    
+    container_name: gateway-container    
+    build:
+      context: ./gateway
+      dockerfile: Dockerfile
+    ports:
+      - 8060:8060
+    depends_on:      
+      - config-server-container
+        
+      
+  service-registry-container:    
+    container_name: service-registry-container    
+    build:
+      context: ./service-registry
+      dockerfile: Dockerfile
+    ports:
+      - 8761:8761
+    depends_on:      
+      - gateway-container
+  dichvu-service-container:    
+    container_name: dichvu-service-container    
+    build:
+      context: ./dichvu-service
+      dockerfile: Dockerfile
+    ports:
+      - 8089:8089
+    depends_on:      
+      - config-server-container
+      - service-registry-container
+      - gateway-container
+    
+      
+  rap-service-container:    
+    container_name: rap-service-container    
+    build:
+      context: ./rap-service
+      dockerfile: Dockerfile
+    ports:
+      - 8081:8081
+    depends_on:      
+      - dichvu-service-container
+    
+      
+  phongchieu-service-container:    
+    container_name: phongchieu-service-container    
+    build:
+      context: ./phongchieu-service
+      dockerfile: Dockerfile
+    ports:
+      - 8082:8082
+    depends_on:      
+      - rap-service-container
+    
+      
+  phim-service-container:    
+    container_name: phim-service-container    
+    build:
+      context: ./phim-service
+      dockerfile: Dockerfile
+    ports:
+      - 8083:8083
+    depends_on:      
+      - phongchieu-service-container
+    
+      
+  ghe-service-container:    
+    container_name: ghe-service-container    
+    build:
+      context: ./ghe-service
+      dockerfile: Dockerfile
+    ports:
+      - 8084:8084
+    depends_on:      
+      - phim-service-container
+    
+      
+  khunggio-service-container:    
+    container_name: khunggio-service-container    
+    build:
+      context: ./khunggio-service
+      dockerfile: Dockerfile
+    ports:
+      - 8086:8086
+    depends_on:      
+      - ghe-service-container
+    
+      
+  lichchieu-service-container:    
+    container_name: lichchieu-service-container 
+    build:
+      context: ./lichchieu-service
+      dockerfile: Dockerfile
+    ports:
+      - 8087:8087
+    depends_on:      
+      - khunggio-service-container
+  ve-service-container:    
+    container_name: ve-service-container 
+    build:
+      context: ./ve-service
+      dockerfile: Dockerfile
+    ports:
+      - 8088:8088
+    depends_on:      
+      - lichchieu-service-container
+    
+      
+  thanhvien-service-container:    
+    container_name: thanhvien-service-container    
+    build:
+      context: ./thanhvien-service
+      dockerfile: Dockerfile
+    ports:
+      - 8091:8091
+    depends_on:      
+      - ve-service-container
+    
+      
+  hoadon-service-container:    
+    container_name: hoadon-service-container    
+    build:
+      context: ./hoadon-service
+      dockerfile: Dockerfile
+    ports:
+      - 8090:8090
+    depends_on:      
+      - thanhvien-service-container
+  email-service-container:    
+    container_name: email-service-container    
+    build:
+      context: ./email-service
+      dockerfile: Dockerfile
+    ports:
+      - 8092:8092
+    depends_on:      
+      - hoadon-service-container
+    
+      

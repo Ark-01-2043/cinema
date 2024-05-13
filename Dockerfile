@@ -1,17 +1,12 @@
 FROM maven:3.8.4-openjdk-17-slim AS build 
-#COPY . .
-
-WORKDIR /app
-COPY config-server /app/config-server
-WORKDIR /app/config-server
+COPY . .
 RUN mvn clean package -DskipTests
 FROM openjdk:17-slim  
 COPY --from=build /target/config-server-0.0.1-SNAPSHOT.jar config-server.jar
 EXPOSE 8099
 ENTRYPOINT ["java","-jar","config-server.jar"]
 
-WORKDIR /app
-COPY service-registry /app/service-registry
+
 WORKDIR /app/service-registry
 RUN mvn clean package -DskipTests
 FROM openjdk:17-slim
@@ -19,8 +14,7 @@ COPY --from=build /target/service-registry-0.0.1-SNAPSHOT.jar service-registry.j
 EXPOSE 8761
 ENTRYPOINT ["java","-jar","service-registry.jar"]
 
-WORKDIR /app
-COPY gateway /app/gateway
+
 WORKDIR /app/gateway
 RUN mvn clean package -DskipTests
 FROM openjdk:17-slim
@@ -28,8 +22,6 @@ COPY --from=build /target/gateway-0.0.1-SNAPSHOT.jar gateway.jar
 EXPOSE 8060
 ENTRYPOINT ["java","-jar","gateway.jar"]
 
-WORKDIR /app
-COPY dichvu-service /app/dichvu-service
 WORKDIR /app/dichvu-service
 RUN mvn clean package -DskipTests
 FROM openjdk:17-slim
@@ -37,8 +29,6 @@ COPY --from=build /target/dichvu-service-0.0.1-SNAPSHOT.jar dichvu-service.jar
 EXPOSE 8089
 ENTRYPOINT ["java","-jar","dichvu-service.jar"]
 
-WORKDIR /app
-COPY rap-service /app/rap-service
 WORKDIR /app/rap-service
 RUN mvn clean package -DskipTests
 FROM openjdk:17-slim
