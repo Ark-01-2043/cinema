@@ -20,6 +20,9 @@ eureka:
     serviceUrl:
       defaultZone: http://localhost:8761/eureka/
 
+application:
+  config:
+    progress-url: http://localhost:8060/api/progress
 
 management:
   tracing:

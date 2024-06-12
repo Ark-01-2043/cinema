@@ -144,5 +144,14 @@ services:
       - 8092:8092
     depends_on:      
       - hoadon-service-container
+  progress-service-container:    
+    container_name: progress-service-container    
+    build:
+      context: ./progress-service
+      dockerfile: Dockerfile
+    ports:
+      - 8093:8093
+    depends_on:      
+      - email-service-container
     
       

@@ -65,6 +65,10 @@ spring:
             uri: lb://email-service
             predicates:
               - Path=/api/emails/**
+          - id: progress-service
+            uri: lb://progress-service
+            predicates:
+              - Path=/api/progress/**
 management:
   tracing:
     sampling:

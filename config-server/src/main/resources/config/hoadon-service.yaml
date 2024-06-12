@@ -5,21 +5,21 @@ spring:
   application:
     name: hoadon-service
   datasource:
-    #driver-class-name: com.mysql.cj.jdbc.Driver
-    #username: root
-    #password: password
-    #url: jdbc:mysql://localhost:3306/quanlyrapphim_hoadon
-    url: jdbc:postgresql://tiny.db.elephantsql.com:5432/vjhywhgf
-    username: vjhywhgf
-    password: 6-J-Z9bSeuHDotw-vo6Q3UC5dZn0rpaN
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: password
+    url: jdbc:mysql://localhost:3306/quanlyrapphim_hoadon
+    #url: jdbc:postgresql://tiny.db.elephantsql.com:5432/vjhywhgf
+    #username: vjhywhgf
+    #password: 6-J-Z9bSeuHDotw-vo6Q3UC5dZn0rpaN
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: true
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
-        format_sql: true
+      #properties:
+      #hibernate:
+      #dialect: org.hibernate.dialect.PostgreSQLDialect
+    #format_sql: true
 
 eureka:
   client:
@@ -32,6 +32,7 @@ application:
     dichvus-url: http://localhost:8060/api/dichvus
     thanhviens-url: http://localhost:8060/api/thanhviens
     emailservice-url: http://localhost:8060/api/emails
+    progress-url: http://localhost:8060/api/progress
 
 
 management:

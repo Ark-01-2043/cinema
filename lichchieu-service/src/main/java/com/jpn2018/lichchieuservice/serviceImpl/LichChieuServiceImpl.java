@@ -29,6 +29,9 @@ public class LichChieuServiceImpl implements LichChieuService {
     @Autowired
     private RapClient rapClient;
 
+    @Autowired
+    private ProgressClient progressClient;
+
     @Override
     public LichChieu saveLichChieu(LichChieu lichChieu) {
         return lichChieuRepository.save(lichChieu);
@@ -95,12 +98,13 @@ public class LichChieuServiceImpl implements LichChieuService {
                 .phongChieu(phongChieuFullResponse)
                 .khungGio(khungGio)
                 .build();
-        
+
         return lichChieuFullResponse;
     }
 
     @Override
     public List<LichChieuFullResponse> findLichChieuByPhimId(Long phimId) {
+//        progressClient.sendProgress("get lich chieu", 25);
 
         List<LichChieu> lichChieus = lichChieuRepository.findByPhimId(phimId);
         List<LichChieuFullResponse> responses = new ArrayList<>();

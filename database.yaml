@@ -1,0 +1,92 @@
+version: '3.8'
+services: 
+  quanlyrapphim_dichvu-container:
+    container_name: quanlyrapphim_dichvu-container
+    image: mysql:8.2.0    
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: quanlyrapphim_dichvu
+    ports:
+      - 3306:3306
+  quanlyrapphim_ghe-container:
+    container_name: quanlyrapphim_ghe-container
+    image: mysql:8.2.0    
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: quanlyrapphim_ghe
+    ports:
+      - 3306:3306
+  quanlyrapphim_hoadon-container:
+    container_name: quanlyrapphim_hoadon-container
+    image: mysql:8.2.0    
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: quanlyrapphim_hoadon
+    ports:
+      - 3306:3306
+  quanlyrapphim_khunggio:
+    container_name: quanlyrapphim_khunggio
+    image: mysql:8.2.0    
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: quanlyrapphim_khunggio
+    ports:
+      - 3306:3306
+  quanlyrapphim_lichchieu:
+    container_name: quanlyrapphim_lichchieu
+    image: mysql:8.2.0    
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: quanlyrapphim_lichchieu
+    ports:
+      - 3306:3306
+  quanlyrapphim_phim:
+    container_name: quanlyrapphim_phim
+    image: mysql:8.2.0    
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: quanlyrapphim_phim
+    ports:
+      - 3306:3306
+  quanlyrapphim_phongchieu:
+    container_name: quanlyrapphim_phongchieu
+    image: mysql:8.2.0    
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: quanlyrapphim_phongchieu
+    ports:
+      - 3306:3306
+  quanlyrapphim_rap:
+    container_name: quanlyrapphim_rap
+    image: mysql:8.2.0    
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: quanlyrapphim_rap
+    ports:
+      - 3306:3306
+  quanlyrapphim_thanhvien:
+    container_name: quanlyrapphim_thanhvien
+    image: mysql:8.2.0    
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: quanlyrapphim_thanhvien
+    ports:
+      - 3306:3306
+  quanlyrapphim_ve:
+    container_name: quanlyrapphim_ve
+    image: mysql:8.2.0    
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: quanlyrapphim_ve
+    ports:
+      - 3306:3306

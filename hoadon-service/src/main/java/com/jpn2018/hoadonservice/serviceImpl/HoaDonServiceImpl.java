@@ -1,9 +1,6 @@
 package com.jpn2018.hoadonservice.serviceImpl;
 
-import com.jpn2018.hoadonservice.client.DichVuClient;
-import com.jpn2018.hoadonservice.client.EmailServiceClient;
-import com.jpn2018.hoadonservice.client.ThanhVienClient;
-import com.jpn2018.hoadonservice.client.VeClient;
+import com.jpn2018.hoadonservice.client.*;
 import com.jpn2018.hoadonservice.dto.EmailRequest;
 import com.jpn2018.hoadonservice.dto.HoaDonDto;
 import com.jpn2018.hoadonservice.dto.Ve;
@@ -44,26 +41,69 @@ public class HoaDonServiceImpl implements HoaDonService {
     @Autowired
     private ChiTietDichVuRepository chiTietDichVuRepository;
 
+    @Autowired
+    private ProgressClient progressClient;
+
 
     @Override
     public HoaDon saveHoaDon(HoaDon hoaDon) {
-        hoaDon.setDate(LocalDate.now());
-        System.out.println(hoaDon);
+        try {
+            hoaDon.setDate(LocalDate.now());
+            System.out.println(hoaDon);
 
-        List<ChiTietVe> chiTietVes = hoaDon.getChiTietVes();
-        for (ChiTietVe chiTietVe : chiTietVes) {
-            Ve ve = veClient.getVeById(chiTietVe.getVeId());
-            ve.setBooked(true);
-            Ve veUpdate = veClient.updateVe(ve.getId(), ve);
+            List<ChiTietVe> chiTietVes = hoaDon.getChiTietVes();
+            for (ChiTietVe chiTietVe : chiTietVes) {
+                try {
+                    Ve ve = veClient.getVeById(chiTietVe.getVeId());
+                    ve.setBooked(true);
+                    Ve veUpdate = veClient.updateVe(ve.getId(), ve);
+                    progressClient.sendProgress("PUT", 200, "update ticket id: " + chiTietVe.getVeId(), 25);
+                } catch (Exception e) {
+                    progressClient.sendProgress("PUT", 404, "error update ticket id: " + chiTietVe.getVeId(), 25);
+                    System.err.println("Error updating ticket: " + e.getMessage());
+                }
+            }
+        } catch (Exception e) {
+            System.err.println("Error saving order: " + e.getMessage());
+            return null;
         }
 
+        HoaDon savedHoaDon;
+        try {
+            savedHoaDon = hoaDonRepository.save(hoaDon);
+            progressClient.sendProgress("POST", 200, "save bill: " + savedHoaDon.getId(), 50);
+        } catch (Exception e) {
+            System.err.println("Error saving bill: " + e.getMessage());
+            progressClient.sendProgress("POST", 404, "can't save bill, something went wrong", 50);
+            return null;
+        }
 
-        HoaDon savedHoaDon = hoaDonRepository.save(hoaDon);
-        String clientEmail = thanhVienClient.getThanhVienById(hoaDon.getThanhVienId()).getEmail();
-        EmailRequest emailRequest = new EmailRequest(clientEmail, "buy ticket successfully", savedHoaDon.toString());
-        emailServiceClient.sendEmail(emailRequest);
-        System.out.println("Request sent to email service...");
+        String clientEmail;
+        try {
+            clientEmail = thanhVienClient.getThanhVienById(hoaDon.getThanhVienId()).getEmail();
+            progressClient.sendProgress("GET", 200, "check client is exist", 75);
+
+        } catch (Exception e) {
+            System.err.println("Error find client: " + e.getMessage());
+            progressClient.sendProgress("GET", 404, "can't find client, something went wrong", 75);
+            return null;
+        }
+
+        try {
+
+//            String clientEmail = thanhVienClient.getThanhVienById(hoaDon.getThanhVienId()).getEmail();
+            EmailRequest emailRequest = new EmailRequest(clientEmail, "buy ticket successfully", savedHoaDon.toString());
+
+            emailServiceClient.sendEmail(emailRequest);
+            progressClient.sendProgress("POST", 200, "send email to client", 100);
+        } catch (Exception e) {
+            System.err.println("Error sending email: " + e.getMessage());
+            progressClient.sendProgress("POST", 404, "can't send email to client, something went wrong", 100);
+            return null;
+        }
+
         return savedHoaDon;
+
     }
 
 

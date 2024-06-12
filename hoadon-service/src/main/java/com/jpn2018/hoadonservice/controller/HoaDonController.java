@@ -1,12 +1,11 @@
 package com.jpn2018.hoadonservice.controller;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
 
-import com.jpn2018.hoadonservice.dto.DatVeRequest;
 import com.jpn2018.hoadonservice.dto.HoaDonDto;
 import com.jpn2018.hoadonservice.entity.HoaDon;
 import com.jpn2018.hoadonservice.exception.ThanhVienNotFoundException;
 import com.jpn2018.hoadonservice.service.HoaDonService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -43,6 +42,7 @@ public class HoaDonController {
     public HoaDon updateHoaDon(@PathVariable Long id, @RequestBody HoaDon hoaDon) {
         return hoaDonService.updateHoaDon(id, hoaDon);
     }
+
     @PostMapping("/datve")
     public HoaDonDto datVe(@RequestBody HoaDon hoaDon) throws ThanhVienNotFoundException {
         return hoaDonService.datVe(hoaDon);
